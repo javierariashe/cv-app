@@ -1,1 +1,17 @@
+.opposite {
+    display: flex;
+    justify-content: space-between;
+}
 
+#cv-preview {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    width: 135mm;
+    height: 190mm;
+    padding: 14mm;
+    justify-self: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px #0000001a;
+    border: 1px solid #ccc;
+}

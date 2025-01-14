@@ -1,4 +1,3 @@
-export default Input;
 import "../styles/Input.css";
 
 function Input({ name, label, value, onChange, type }) {
@@ -9,3 +8,5 @@ function Input({ name, label, value, onChange, type }) {
         </div>
     );
 }
+
+export default Input;
