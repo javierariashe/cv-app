@@ -2,7 +2,7 @@ import Input from "./Input";
 
 function PersonalForm({ personal, handleChange }) {
     return (
-        <div className="personalForm">
+        <div className="form">
             <div className="forms-header">Personal Information</div>
             {Object.entries(personal).map(([key, field]) => {
                 return (

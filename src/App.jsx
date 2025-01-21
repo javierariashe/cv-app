@@ -26,7 +26,7 @@ function App() {
     const experienceTemplate = {
         position: { label: "Position", value: "", type: "text" },
         company: { label: "Company", value: "", type: "text" },
-        description: { label: "Description", value: "", type: "text" },
+        description: { label: "Description", value: "", type: "textarea" },
         startDate: { label: "Starting Date", value: "", type: "date" },
         endDate: { label: "End Date", value: "", type: "date" },
         location: { label: "Location", value: "", type: "text" },

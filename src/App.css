@@ -17,6 +17,10 @@
     border: 1px solid #ccc;
 }
 
+#cv-preview a {
+    color: black;
+}
+
 .cv-name {
     font-size: 2.5rem;
     font-weight: 500;
@@ -41,4 +45,13 @@
 .personal-details {
     font-size: 0.9rem;
     margin-bottom: 6px;
+}
+
+ul {
+    margin: 6px 0;
+    padding-left: 18px;
+}
+
+li {
+    margin-bottom: 2px;
 }

@@ -53,23 +53,28 @@ function Preview({ personal, education, experience }) {
             <hr />
             {experience.map((exp) => {
                 return (
-                    <div className="experience-item" key={exp.id}>
-                        <div className="cv-details">
-                            <div className="opposite">
-                                <span>
-                                    <b>{exp.position.value}</b>
-                                </span>
-                                <span>
-                                    {getDate(exp.startDate.value)}
-                                    {" - "}
-                                    {getDate(exp.endDate.value)}
-                                </span>
-                            </div>
-                            <div className="opposite">
-                                <span>{exp.company.value}</span>
-                                <span>{exp.location.value}</span>
-                            </div>
+                    <div className="experience-item cv-details" key={exp.id}>
+                        <div className="opposite">
+                            <span>
+                                <b>{exp.position.value}</b>
+                            </span>
+                            <span>
+                                {getDate(exp.startDate.value)}
+                                {" - "}
+                                {getDate(exp.endDate.value)}
+                            </span>
                         </div>
+                        <div className="opposite">
+                            <span>{exp.company.value}</span>
+                            <span>{exp.location.value}</span>
+                        </div>
+                        <ul>
+                            {exp.description.value
+                                .split("\n")
+                                .map((line, index) => {
+                                    return <li key={index}>{line}</li>;
+                                })}
+                        </ul>
                     </div>
                 );
             })}

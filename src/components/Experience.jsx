@@ -7,14 +7,18 @@ function ExperienceForm({ experience, handleChange, handleDelete, exp_id }) {
     }
 
     return (
-        <div>
-            <div className="experienceForm-header" onClick={handleDropdown}>
+        <div className="form">
+            <div
+                className="experienceForm-header opposite"
+                onClick={handleDropdown}
+            >
                 {" "}
                 {experience.position.value == ""
                     ? "New Experience"
                     : experience.position.value}
+                <span>▼</span>
             </div>
-            <div className="experienceForm">
+            <div>
                 {Object.entries(experience).map(([key, field]) => {
                     if (key === "id") return;
                     return (
