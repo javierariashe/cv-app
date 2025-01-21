@@ -4,14 +4,41 @@
 }
 
 #cv-preview {
+    font-family: "Times New Roman", Times, serif;
     display: flex;
     flex-direction: column;
     overflow-x: auto;
-    width: 135mm;
-    height: 190mm;
-    padding: 14mm;
+    width: 137mm;
+    height: 192mm;
+    padding: 12mm;
     justify-self: center;
     background-color: #fff;
     box-shadow: 0 4px 8px #0000001a;
     border: 1px solid #ccc;
+}
+
+.cv-name {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.center {
+    text-align: center;
+}
+.cv-header {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.cv-details {
+    font-size: 1rem;
+}
+
+.cv-details div {
+    margin-bottom: 4px;
+}
+
+.personal-details {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
 }

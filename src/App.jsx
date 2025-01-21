@@ -24,8 +24,8 @@ function App() {
     };
 
     const experienceTemplate = {
-        company: { label: "Company", value: "", type: "text" },
         position: { label: "Position", value: "", type: "text" },
+        company: { label: "Company", value: "", type: "text" },
         description: { label: "Description", value: "", type: "text" },
         startDate: { label: "Starting Date", value: "", type: "date" },
         endDate: { label: "End Date", value: "", type: "date" },
@@ -89,7 +89,7 @@ function App() {
                     education={education}
                     handleChange={handleEducationChange}
                 />
-                <h2>Experience</h2>
+                <div className="forms-header">Experience</div>
                 <button onClick={handleNewExperience}>Add New</button>
                 {experience.map((exp) => {
                     return (

@@ -1,5 +1,3 @@
-import "../styles/Input.css";
-
 function Input({ name, label, value, onChange, type }) {
     return (
         <div>
