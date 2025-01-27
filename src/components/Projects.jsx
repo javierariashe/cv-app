@@ -3,61 +3,54 @@ import getDate from "../js/getDate";
 import Description from "./Description";
 import handleDropdown from "../js/handleDropdown";
 
-function ExperienceForm({ experience, handleChange, handleDelete, exp_id }) {
+function ProjectForm({ project, handleChange, handleDelete, project_id }) {
     return (
         <div className="form">
             <div className="form-header opposite" onClick={handleDropdown}>
                 {" "}
-                {experience.position.value == ""
-                    ? "New Experience"
-                    : experience.position.value}
+                {project.name.value == "" ? "New Project" : project.name.value}
                 <span>▼</span>
             </div>
             <div>
-                {Object.entries(experience).map(([key, field]) => {
+                {Object.entries(project).map(([key, field]) => {
                     if (key === "id") return;
                     return (
                         <Input
                             name={key}
                             label={field.label}
                             value={field.value}
-                            onChange={(e) => handleChange(e, exp_id)}
+                            onChange={(e) => handleChange(e, project_id)}
                             type={field.type}
                             key={key}
                         />
                     );
                 })}
-                <button onClick={() => handleDelete(experience.id)}>
-                    Delete
-                </button>
+                <button onClick={() => handleDelete(project.id)}>Delete</button>
             </div>
         </div>
     );
 }
 
-function ExperiencePreview({ experience }) {
+function ProjectPreview({ projects }) {
     return (
         <>
-            <div className="cv-header">Experience</div>
+            <div className="cv-header">Projects</div>
             <hr />
-            {experience.map((exp) => {
+            {projects.map((project) => {
                 return (
-                    <div className="experience-item cv-details" key={exp.id}>
+                    <div className="project-item cv-details" key={project.id}>
                         <div className="opposite">
                             <span>
-                                <b>{exp.position.value}</b>
+                                <b>{project.name.value}</b> |{" "}
+                                {project.tech.value}
                             </span>
                             <span>
-                                {getDate(exp.startDate)}
+                                {getDate(project.startDate)}
                                 {" - "}
-                                {getDate(exp.endDate)}
+                                {getDate(project.endDate)}
                             </span>
                         </div>
-                        <div className="opposite">
-                            <span>{exp.company.value}</span>
-                            <span>{exp.location.value}</span>
-                        </div>
-                        <Description description={exp.description.value} />
+                        <Description description={project.description.value} />
                     </div>
                 );
             })}
@@ -65,4 +58,4 @@ function ExperiencePreview({ experience }) {
     );
 }
 
-export { ExperienceForm, ExperiencePreview };
+export { ProjectForm, ProjectPreview };

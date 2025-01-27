@@ -1,4 +1,5 @@
 import Input from "./Input";
+import getDate from "../js/getDate";
 
 function EducationForm({ education, handleChange }) {
     return (
@@ -20,4 +21,39 @@ function EducationForm({ education, handleChange }) {
     );
 }
 
-export default EducationForm;
+function EducationPreview({ education }) {
+    return (
+        <>
+            <div className="cv-header">Education</div>
+            <hr />
+            <div className="cv-details">
+                <div className="opposite ">
+                    <span>
+                        <b>{education.school.value}</b>
+                    </span>
+                    <span>{education.location.value}</span>
+                </div>
+                <div className="opposite">
+                    <span>
+                        <i>{education.degree.value}</i>
+                    </span>
+                    <span>
+                        <i>
+                            {getDate(education.startDate)}
+                            {" - "}
+                            {getDate(education.endDate)}
+                        </i>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <b>Relevant courses: </b>
+                        {education.courses.value}
+                    </span>
+                </div>
+            </div>
+        </>
+    );
+}
+
+export { EducationForm, EducationPreview };

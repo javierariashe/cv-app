@@ -20,4 +20,20 @@ function PersonalForm({ personal, handleChange }) {
     );
 }
 
-export default PersonalForm;
+function PersonalPreview({ personal }) {
+    return (
+        <>
+            <div className="center cv-name">{personal.name.value}</div>
+            <div className="center personal-details">
+                <a href={"mailto:" + personal.email.value}>
+                    {personal.email.value}
+                </a>
+                {" | "} {personal.phoneNumber.value}
+                {" | "} <a href={personal.github.value}>github.com</a>
+                {" | "} <a href={personal.linkedin.value}>linkedin.com</a>
+            </div>
+        </>
+    );
+}
+
+export { PersonalForm, PersonalPreview };

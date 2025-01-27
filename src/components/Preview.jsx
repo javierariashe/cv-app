@@ -1,83 +1,15 @@
-function Preview({ personal, education, experience }) {
-    function getDate(date) {
-        if (date === "") {
-            return "";
-        }
+import { PersonalPreview } from "./Personal";
+import { EducationPreview } from "./Education";
+import { ExperiencePreview } from "./Experience";
+import { ProjectPreview } from "./Projects";
 
-        return new Date(date).toLocaleString("en-US", {
-            month: "short",
-            year: "numeric",
-        });
-    }
-
+function Preview({ personal, education, experience, projects }) {
     return (
         <div id="cv-preview">
-            <div className="center cv-name">{personal.name.value}</div>
-            <div className="center personal-details">
-                <a href={"mailto:" + personal.email.value}>
-                    {personal.email.value}
-                </a>
-                {" | "} {personal.phoneNumber.value}
-                {" | "} <a href={personal.github.value}>github.com</a>
-                {" | "} <a href={personal.linkedin.value}>linkedin.com</a>
-            </div>
-            <div className="cv-header">Education</div>
-            <hr />
-            <div className="cv-details">
-                <div className="opposite ">
-                    <span>
-                        <b>{education.school.value}</b>
-                    </span>
-                    <span>{education.location.value}</span>
-                </div>
-                <div className="opposite">
-                    <span>
-                        <i>{education.degree.value}</i>
-                    </span>
-                    <span>
-                        <i>
-                            {getDate(education.startDate.value)}
-                            {" - "}
-                            {getDate(education.endDate.value)}
-                        </i>
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <b>Relevant courses: </b>
-                        {education.courses.value}
-                    </span>
-                </div>
-            </div>
-            <div className="cv-header">Experience</div>
-            <hr />
-            {experience.map((exp) => {
-                return (
-                    <div className="experience-item cv-details" key={exp.id}>
-                        <div className="opposite">
-                            <span>
-                                <b>{exp.position.value}</b>
-                            </span>
-                            <span>
-                                {getDate(exp.startDate.value)}
-                                {" - "}
-                                {getDate(exp.endDate.value)}
-                            </span>
-                        </div>
-                        <div className="opposite">
-                            <span>{exp.company.value}</span>
-                            <span>{exp.location.value}</span>
-                        </div>
-                        <ul>
-                            {exp.description.value
-                                .split("\n")
-                                .map((line, index) => {
-                                    return <li key={index}>{line}</li>;
-                                })}
-                        </ul>
-                    </div>
-                );
-            })}
+            <PersonalPreview personal={personal} />
+            <EducationPreview education={education} />
+            <ExperiencePreview experience={experience} />
+            <ProjectPreview projects={projects} />
         </div>
     );
 }

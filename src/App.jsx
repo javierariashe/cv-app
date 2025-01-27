@@ -1,45 +1,29 @@
 import "./App.css";
 import { useState } from "react";
-import PersonalForm from "./components/Personal";
-import EducationForm from "./components/Education";
-import ExperienceForm from "./components/Experience";
+import { PersonalForm } from "./components/Personal";
+import { EducationForm } from "./components/Education";
+import { ExperienceForm } from "./components/Experience";
+import { ProjectForm } from "./components/Projects";
 import Preview from "./components/Preview";
+import {
+    personalInit,
+    educationInit,
+    experienceTemplate,
+    experiencesInit,
+    projectsInit,
+    projectTemplate,
+} from "./js/init";
 
 function App() {
-    const personalInit = {
-        name: { label: "Full Name", value: "", type: "text" },
-        email: { label: "Email", value: "", type: "email" },
-        phoneNumber: { label: "Phone Number", value: "", type: "tel" },
-        github: { label: "Github", value: "", type: "url" },
-        linkedin: { label: "Linkedin", value: "", type: "url" },
-    };
-
-    const educationInit = {
-        school: { label: "School Name", value: "", type: "text" },
-        degree: { label: "Degree", value: "", type: "text" },
-        location: { label: "Location", value: "", type: "text" },
-        startDate: { label: "Starting Date", value: "", type: "date" },
-        endDate: { label: "End Date", value: "", type: "date" },
-        courses: { label: "Relevant Courses", value: "", type: "text" },
-    };
-
-    const experienceTemplate = {
-        position: { label: "Position", value: "", type: "text" },
-        company: { label: "Company", value: "", type: "text" },
-        description: { label: "Description", value: "", type: "textarea" },
-        startDate: { label: "Starting Date", value: "", type: "date" },
-        endDate: { label: "End Date", value: "", type: "date" },
-        location: { label: "Location", value: "", type: "text" },
-        id: null,
-    };
-
-    const [count, setCount] = useState(1);
-    const experienceInit = [{ ...experienceTemplate, id: 0 }];
-
-    const [experience, setExperience] = useState(experienceInit);
-    const [education, setEducation] = useState(educationInit);
+    //State initialization
+    const [experienceCount, setExperienceCount] = useState(1);
+    const [projectCount, setProjectCount] = useState(1);
     const [personal, setPersonal] = useState(personalInit);
+    const [education, setEducation] = useState(educationInit);
+    const [experiences, setExperiences] = useState(experiencesInit);
+    const [projects, setProjects] = useState(projectsInit);
 
+    //Handlers
     const handlePersonalChange = (e) => {
         const { name, value } = e.target;
         setPersonal({
@@ -48,34 +32,94 @@ function App() {
         });
     };
 
+    const handleEducationChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        if (type === "checkbox") {
+            setEducation({
+                ...education,
+                [name]: { ...education[name], present: checked },
+            });
+        } else {
+            setEducation({
+                ...education,
+                [name]: { ...education[name], value },
+            });
+        }
+    };
+
     const handleExperienceChange = (e, exp_id) => {
-        const { name, value } = e.target;
-        setExperience([
-            ...experience.map((exp) => {
-                if (exp.id === exp_id) {
-                    return { ...exp, [name]: { ...exp[name], value } };
-                }
-                return exp;
-            }),
-        ]);
+        const { name, value, type, checked } = e.target;
+        if (type === "checkbox") {
+            setExperiences([
+                ...experiences.map((exp) => {
+                    if (exp.id === exp_id) {
+                        return {
+                            ...exp,
+                            [name]: { ...exp[name], present: checked },
+                        };
+                    }
+                    return exp;
+                }),
+            ]);
+        } else {
+            setExperiences([
+                ...experiences.map((exp) => {
+                    if (exp.id === exp_id) {
+                        return { ...exp, [name]: { ...exp[name], value } };
+                    }
+                    return exp;
+                }),
+            ]);
+        }
     };
 
     const handleNewExperience = () => {
-        const newExperience = { ...experienceTemplate, id: count };
-        setExperience([...experience, newExperience]);
-        setCount(count + 1);
+        const newExperience = { ...experienceTemplate, id: experienceCount };
+        setExperiences([...experiences, newExperience]);
+        setExperienceCount(experienceCount + 1);
     };
 
     const handleDeleteExperience = (id) => {
-        setExperience(experience.filter((exp) => exp.id !== id));
+        setExperiences(experiences.filter((exp) => exp.id !== id));
     };
 
-    const handleEducationChange = (e) => {
-        const { name, value } = e.target;
-        setEducation({
-            ...education,
-            [name]: { ...education[name], value },
-        });
+    const handleProjectChange = (e, project_id) => {
+        const { name, value, type, checked } = e.target;
+        if (type === "checkbox") {
+            setProjects([
+                ...projects.map((project) => {
+                    if (project.id === project_id) {
+                        return {
+                            ...project,
+                            [name]: { ...project[name], present: checked },
+                        };
+                    }
+                    return project;
+                }),
+            ]);
+        } else {
+            setProjects([
+                ...projects.map((project) => {
+                    if (project.id === project_id) {
+                        return {
+                            ...project,
+                            [name]: { ...project[name], value },
+                        };
+                    }
+                    return project;
+                }),
+            ]);
+        }
+    };
+
+    function handleNewProject() {
+        const newProject = { ...projectTemplate, id: projectCount };
+        setProjects([...projects, newProject]);
+        setProjectCount(projectCount + 1);
+    }
+
+    const handleDeleteProject = (id) => {
+        setProjects(projects.filter((project) => project.id !== id));
     };
 
     return (
@@ -89,25 +133,43 @@ function App() {
                     education={education}
                     handleChange={handleEducationChange}
                 />
-                <div className="forms-header">Experience</div>
-                <button onClick={handleNewExperience}>Add New</button>
-                {experience.map((exp) => {
-                    return (
-                        <ExperienceForm
-                            experience={exp}
-                            handleChange={handleExperienceChange}
-                            handleDelete={handleDeleteExperience}
-                            exp_id={exp.id}
-                            key={exp.id}
-                        />
-                    );
-                })}
+                <div>
+                    <div className="forms-header">Experience</div>
+                    <button onClick={handleNewExperience}>Add New</button>
+                    {experiences.map((experience) => {
+                        return (
+                            <ExperienceForm
+                                experience={experience}
+                                handleChange={handleExperienceChange}
+                                handleDelete={handleDeleteExperience}
+                                exp_id={experience.id}
+                                key={experience.id}
+                            />
+                        );
+                    })}
+                </div>
+                <div>
+                    <div className="forms-header">Projects</div>
+                    <button onClick={handleNewProject}>Add New</button>
+                    {projects.map((project) => {
+                        return (
+                            <ProjectForm
+                                project={project}
+                                handleChange={handleProjectChange}
+                                handleDelete={handleDeleteProject}
+                                project_id={project.id}
+                                key={project.id}
+                            />
+                        );
+                    })}
+                </div>
             </div>
             <div className="preview">
                 <Preview
                     personal={personal}
                     education={education}
-                    experience={experience}
+                    experience={experiences}
+                    projects={projects}
                 />
             </div>
         </>
