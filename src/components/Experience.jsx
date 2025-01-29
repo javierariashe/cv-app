@@ -1,6 +1,6 @@
 import Input from "./Input";
-import getDate from "../js/getDate";
 import Description from "./Description";
+import getDate from "../js/getDate";
 import handleDropdown from "../js/handleDropdown";
 
 function ExperienceForm({ experience, handleChange, handleDelete, exp_id }) {

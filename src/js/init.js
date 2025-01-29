@@ -14,7 +14,6 @@ const educationInit = {
         label: "Starting Date",
         value: "",
         type: "date",
-        present: false,
     },
     endDate: { label: "End Date", value: "", type: "date", present: false },
     courses: { label: "Relevant Courses", value: "", type: "text" },
@@ -28,7 +27,6 @@ const experienceTemplate = {
         label: "Starting Date",
         value: "",
         type: "date",
-        present: false,
     },
     endDate: { label: "End Date", value: "", type: "date", present: false },
     location: { label: "Location", value: "", type: "text" },
@@ -43,10 +41,29 @@ const projectTemplate = {
         label: "Starting Date",
         value: "",
         type: "date",
-        present: false,
     },
     endDate: { label: "End Date", value: "", type: "date", present: false },
     id: null,
+};
+
+const skillsInit = {
+    programmingLanguages: {
+        label: "Programming Languages",
+        value: "",
+        type: "text",
+    },
+    devTools: { label: "Development Tools", value: "", type: "text" },
+    languages: { label: "Languages", value: "", type: "text" },
+};
+
+const achievementTemplate = {
+    name: { label: "Name", value: "", type: "text" },
+    description: { label: "Description", value: "", type: "textarea" },
+    date: {
+        label: "Date",
+        value: "",
+        type: "date",
+    },
 };
 
 personalInit.name.value = "Javier Arias Hernández";
@@ -75,6 +92,7 @@ experienceTemplate.location.value = "Mexico City, Mexico";
 
 const experiencesInit = [{ ...experienceTemplate, id: 0 }];
 const projectsInit = [{ ...projectTemplate, id: 0 }];
+const achievementsInit = [{ ...achievementTemplate, id: 0 }];
 
 export {
     personalInit,
@@ -83,4 +101,7 @@ export {
     experienceTemplate,
     projectsInit,
     projectTemplate,
+    skillsInit,
+    achievementsInit,
+    achievementTemplate,
 };

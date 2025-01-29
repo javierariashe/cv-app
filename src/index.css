@@ -8,9 +8,16 @@ body {
 
 .preview {
     width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow-y: scroll;
+    height: calc(100vh - 40px);
+    padding: 20px 0;
+}
+
+.preview button {
+    float: right;
+    margin-right: 1%;
+    padding: 20px 26px;
+    position: sticky;
 }
 
 .forms {
@@ -45,7 +52,7 @@ hr {
     margin: 8px 0px;
 }
 
-.forms button {
+button {
     margin: 4px 0px;
     background-color: black;
     color: white;
@@ -55,7 +62,7 @@ hr {
     border-radius: 4px;
 }
 
-.forms button:hover {
+button:hover {
     background-color: #444;
     cursor: pointer;
 }
@@ -85,4 +92,36 @@ textarea {
 
 textarea {
     resize: vertical;
+}
+
+@media print {
+    /* Reset all margins and padding */
+    @page {
+        margin: 0;
+        size: A4;
+    }
+
+    /* Hide everything except CV preview */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Show only CV preview and its contents */
+    #cv-preview,
+    #cv-preview * {
+        visibility: visible;
+    }
+
+    /* Position and size the CV preview */
+    #cv-preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 20mm;
+        box-shadow: none;
+        border: none;
+    }
 }

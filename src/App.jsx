@@ -4,6 +4,8 @@ import { PersonalForm } from "./components/Personal";
 import { EducationForm } from "./components/Education";
 import { ExperienceForm } from "./components/Experience";
 import { ProjectForm } from "./components/Projects";
+import { SkillsForm } from "./components/Skills";
+import { AchievementForm } from "./components/Achievements";
 import Preview from "./components/Preview";
 import {
     personalInit,
@@ -12,16 +14,23 @@ import {
     experiencesInit,
     projectsInit,
     projectTemplate,
+    skillsInit,
+    achievementsInit,
+    achievementTemplate,
 } from "./js/init";
 
 function App() {
     //State initialization
     const [experienceCount, setExperienceCount] = useState(1);
     const [projectCount, setProjectCount] = useState(1);
+    const [achievementCount, setAchievementCount] = useState(1);
+
     const [personal, setPersonal] = useState(personalInit);
     const [education, setEducation] = useState(educationInit);
     const [experiences, setExperiences] = useState(experiencesInit);
     const [projects, setProjects] = useState(projectsInit);
+    const [skills, setSkills] = useState(skillsInit);
+    const [achievements, setAchievements] = useState(achievementsInit);
 
     //Handlers
     const handlePersonalChange = (e) => {
@@ -122,9 +131,61 @@ function App() {
         setProjects(projects.filter((project) => project.id !== id));
     };
 
+    const handleSkillsChange = (e) => {
+        const { name, value } = e.target;
+        setSkills({
+            ...skills,
+            [name]: { ...skills[name], value },
+        });
+    };
+
+    const handleAchievementsChange = (e, achievement_id) => {
+        const { name, value, type, checked } = e.target;
+        if (type === "checkbox") {
+            setAchievements([
+                ...achievements.map((achievement) => {
+                    if (achievement.id === achievement_id) {
+                        return {
+                            ...achievement,
+                            [name]: { ...achievement[name], present: checked },
+                        };
+                    }
+                    return achievement;
+                }),
+            ]);
+        } else {
+            setAchievements([
+                ...achievements.map((achievement) => {
+                    if (achievement.id === achievement_id) {
+                        return {
+                            ...achievement,
+                            [name]: { ...achievement[name], value },
+                        };
+                    }
+                    return achievement;
+                }),
+            ]);
+        }
+    };
+
+    function handleNewAchievement() {
+        const newAchievement = {
+            ...achievementTemplate,
+            id: achievementCount,
+        };
+        setAchievements([...achievements, newAchievement]);
+        setAchievementCount(achievementCount + 1);
+    }
+
+    const handleDeleteAchievement = (id) => {
+        setAchievements(
+            achievements.filter((achievement) => achievement.id !== id),
+        );
+    };
+
     return (
         <>
-            <div className="forms">
+            <div className="forms" id="forms">
                 <PersonalForm
                     personal={personal}
                     handleChange={handlePersonalChange}
@@ -163,15 +224,31 @@ function App() {
                         );
                     })}
                 </div>
+                <SkillsForm skills={skills} handleChange={handleSkillsChange} />
+                <div>
+                    <div className="forms-header">Achievements</div>
+                    <button onClick={handleNewAchievement}>Add New</button>
+                    {achievements.map((achievement) => {
+                        return (
+                            <AchievementForm
+                                achievement={achievement}
+                                handleChange={handleAchievementsChange}
+                                handleDelete={handleDeleteAchievement}
+                                achievement_id={achievement.id}
+                                key={achievement.id}
+                            />
+                        );
+                    })}
+                </div>
             </div>
-            <div className="preview">
-                <Preview
-                    personal={personal}
-                    education={education}
-                    experience={experiences}
-                    projects={projects}
-                />
-            </div>
+            <Preview
+                personal={personal}
+                education={education}
+                experience={experiences}
+                projects={projects}
+                skills={skills}
+                achievements={achievements}
+            />
         </>
     );
 }
