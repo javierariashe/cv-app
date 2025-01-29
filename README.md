@@ -6,13 +6,11 @@ information about your education, work experience, skills, and more.
 
 ## Live Demo
 
-You can see a live demo of the app [here](/).
+You can see a live demo of the app [here](https://cv-app-livid-sigma.vercel.app/).
 
 ## Screenshots
 
-![Screenshot 1](/screenshots/screenshot1.png)
-
-![Screenshot 2](/screenshots/screenshot2.png)
+![Screenshot 1](/public/screenshot1.png)
 
 ## License
 
