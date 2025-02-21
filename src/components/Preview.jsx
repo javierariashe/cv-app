@@ -15,7 +15,7 @@ function Preview({
 }) {
     return (
         <div className="preview">
-            <button onClick={window.print}>Download PDF</button>
+            <button id="download-button" onClick={window.print}>Download PDF</button>
             <div id="cv-preview">
                 <PersonalPreview personal={personal} />
                 <EducationPreview education={education} />
