@@ -7,6 +7,7 @@ import { ProjectForm } from "./components/Projects";
 import { SkillsForm } from "./components/Skills";
 import { AchievementForm } from "./components/Achievements";
 import Preview from "./components/Preview";
+import Sidebar from "../Sidebar";
 import {
     personalInit,
     educationInit,
@@ -31,6 +32,9 @@ function App() {
     const [projects, setProjects] = useState(projectsInit);
     const [skills, setSkills] = useState(skillsInit);
     const [achievements, setAchievements] = useState(achievementsInit);
+
+    const [section, setSection] = useState(0);
+
 
     //Handlers
     const handlePersonalChange = (e) => {
@@ -183,63 +187,95 @@ function App() {
         );
     };
 
+    const handleSectionChange = (sectionId) => {
+            setSection(sectionId);
+    };
+
+    const sectionSelector = () => {
+        switch (section) {
+            case 0:
+                return (
+                    <PersonalForm
+                        personal={personal}
+                        handleChange={handlePersonalChange}
+                    />
+                );
+            case 1:
+                return (
+                    <EducationForm
+                        education={education}
+                        handleChange={handleEducationChange}
+                    />
+                );
+            case 2:
+                return (
+                    <div>
+                        <div className="forms-header">Experience</div>
+                        <button onClick={handleNewExperience}>Add New</button>
+                        {experiences.map((experience) => {
+                            return (
+                                <ExperienceForm
+                                    experience={experience}
+                                    handleChange={handleExperienceChange}
+                                    handleDelete={handleDeleteExperience}
+                                    exp_id={experience.id}
+                                    key={experience.id}
+                                />
+                            );
+                        })}
+                    </div>
+                );
+            case 3:
+                return (
+                    <div>
+                        <div className="forms-header">Projects</div>
+                        <button onClick={handleNewProject}>Add New</button>
+                        {projects.map((project) => {
+                            return (
+                                <ProjectForm
+                                    project={project}
+                                    handleChange={handleProjectChange}
+                                    handleDelete={handleDeleteProject}
+                                    project_id={project.id}
+                                    key={project.id}
+                                />
+                            );
+                        })}
+                    </div>
+                );
+            case 4:
+                return (
+                    <SkillsForm
+                        skills={skills}
+                        handleChange={handleSkillsChange}
+                    />
+                );
+            case 5:
+                return (
+                    <div>
+                        <div className="forms-header">Achievements</div>
+                        <button onClick={handleNewAchievement}>Add New</button>
+                        {achievements.map((achievement) => {
+                            return (
+                                <AchievementForm
+                                    achievement={achievement}
+                                    handleChange={handleAchievementsChange}
+                                    handleDelete={handleDeleteAchievement}
+                                    achievement_id={achievement.id}
+                                    key={achievement.id}
+                                />
+                            );
+                        })}
+                    </div>
+                );
+        }
+    };
+
     return (
         <>
+            <Sidebar handleSectionChange={handleSectionChange} />
             <div className="forms" id="forms">
-                <PersonalForm
-                    personal={personal}
-                    handleChange={handlePersonalChange}
-                />
-                <EducationForm
-                    education={education}
-                    handleChange={handleEducationChange}
-                />
-                <div>
-                    <div className="forms-header">Experience</div>
-                    <button onClick={handleNewExperience}>Add New</button>
-                    {experiences.map((experience) => {
-                        return (
-                            <ExperienceForm
-                                experience={experience}
-                                handleChange={handleExperienceChange}
-                                handleDelete={handleDeleteExperience}
-                                exp_id={experience.id}
-                                key={experience.id}
-                            />
-                        );
-                    })}
-                </div>
-                <div>
-                    <div className="forms-header">Projects</div>
-                    <button onClick={handleNewProject}>Add New</button>
-                    {projects.map((project) => {
-                        return (
-                            <ProjectForm
-                                project={project}
-                                handleChange={handleProjectChange}
-                                handleDelete={handleDeleteProject}
-                                project_id={project.id}
-                                key={project.id}
-                            />
-                        );
-                    })}
-                </div>
-                <SkillsForm skills={skills} handleChange={handleSkillsChange} />
-                <div>
-                    <div className="forms-header">Achievements</div>
-                    <button onClick={handleNewAchievement}>Add New</button>
-                    {achievements.map((achievement) => {
-                        return (
-                            <AchievementForm
-                                achievement={achievement}
-                                handleChange={handleAchievementsChange}
-                                handleDelete={handleDeleteAchievement}
-                                achievement_id={achievement.id}
-                                key={achievement.id}
-                            />
-                        );
-                    })}
-                </div>
+                {sectionSelector()}
             </div>
             <Preview
                 personal={personal}
