@@ -29,8 +29,8 @@ function PersonalPreview({ personal }) {
                     {personal.email.value}
                 </a>
                 {" | "} {personal.phoneNumber.value}
-                {" | "} <a href={personal.github.value}>github.com</a>
-                {" | "} <a href={personal.linkedin.value}>linkedin.com</a>
+                {" | "} <a href={"http://" + personal.github.value}>github.com</a>
+                {" | "} <a href={"http://" + personal.linkedin.value}>linkedin.com</a>
             </div>
         </>
     );

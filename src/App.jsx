@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PersonalForm } from "./components/Personal";
 import { EducationForm } from "./components/Education";
 import { ExperienceForm } from "./components/Experience";
@@ -21,20 +21,72 @@ import {
 } from "./js/init";
 
 function App() {
-    //State initialization
-    const [experienceCount, setExperienceCount] = useState(1);
-    const [projectCount, setProjectCount] = useState(1);
-    const [achievementCount, setAchievementCount] = useState(1);
 
-    const [personal, setPersonal] = useState(personalInit);
-    const [education, setEducation] = useState(educationInit);
-    const [experiences, setExperiences] = useState(experiencesInit);
-    const [projects, setProjects] = useState(projectsInit);
-    const [skills, setSkills] = useState(skillsInit);
-    const [achievements, setAchievements] = useState(achievementsInit);
+    const savedData = localStorage.getItem('cvData');
+
+    const [experienceCount, setExperienceCount] = useState(() => {
+        return savedData ? JSON.parse(savedData).experienceCount : 1;
+    });
+
+    const [projectCount, setProjectCount] = useState(() => {
+        return savedData ? JSON.parse(savedData).projectCount : 1;
+    });
+
+    const [achievementCount, setAchievementCount] = useState(() => {
+        return savedData ? JSON.parse(savedData).achievementCount : 1;
+    });
+
+    const [personal, setPersonal] = useState(() => {
+        return savedData ? JSON.parse(savedData).personal : personalInit;
+    });
+
+    const [education, setEducation] = useState(() => {
+        return savedData ? JSON.parse(savedData).education : educationInit;
+    });
+
+    const [experiences, setExperiences] = useState(() => {
+        return savedData ? JSON.parse(savedData).experiences : experiencesInit;
+    });
+
+    const [projects, setProjects] = useState(() => {
+        return savedData ? JSON.parse(savedData).projects : projectsInit;
+    });
+
+    const [skills, setSkills] = useState(() => {
+        return savedData ? JSON.parse(savedData).skills : skillsInit;
+    });
+
+    const [achievements, setAchievements] = useState(() => {
+        return savedData ? JSON.parse(savedData).achievements : achievementsInit;
+    });
 
     const [section, setSection] = useState(0);
 
+    // Save data whenever state changes
+    useEffect(() => {
+        const data = {
+            personal,
+            education,
+            experiences,
+            projects,
+            skills,
+            achievements,
+            experienceCount,
+            projectCount,
+            achievementCount
+        };
+        localStorage.setItem('cvData', JSON.stringify(data));
+    }, [
+        personal,
+        education,
+        experiences,
+        projects,
+        skills,
+        achievements,
+        experienceCount,
+        projectCount,
+        achievementCount
+    ]);
 
     //Handlers
     const handlePersonalChange = (e) => {
