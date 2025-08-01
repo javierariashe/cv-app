@@ -1,7 +1,7 @@
 import Input from "./Input";
-import getDate from "../js/getDate";
 import Description from "./Description";
-import handleDropdown from "../js/handleDropdown";
+import getDate from "../utils/getDate";
+import handleDropdown from "../utils/handleDropdown";
 
 function ProjectForm({ project, handleChange, handleDelete, project_id }) {
     return (

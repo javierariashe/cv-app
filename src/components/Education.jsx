@@ -1,5 +1,5 @@
 import Input from "./Input";
-import getDate from "../js/getDate";
+import getDate from "../utils/getDate";
 
 function EducationForm({ education, handleChange }) {
     return (

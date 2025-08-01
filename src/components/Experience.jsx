@@ -1,7 +1,7 @@
 import Input from "./Input";
 import Description from "./Description";
-import getDate from "../js/getDate";
-import handleDropdown from "../js/handleDropdown";
+import getDate from "../utils/getDate";
+import handleDropdown from "../utils/handleDropdown";
 
 function ExperienceForm({ experience, handleChange, handleDelete, exp_id }) {
     return (

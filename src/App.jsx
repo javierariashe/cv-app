@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import { useEffect, useState } from "react";
 import { PersonalForm } from "./components/Personal";
 import { EducationForm } from "./components/Education";
@@ -7,7 +7,7 @@ import { ProjectForm } from "./components/Projects";
 import { SkillsForm } from "./components/Skills";
 import { AchievementForm } from "./components/Achievements";
 import Preview from "./components/Preview";
-import Sidebar from "../Sidebar";
+import Sidebar from "./components/Sidebar";
 import {
     personalInit,
     educationInit,
@@ -18,7 +18,7 @@ import {
     skillsInit,
     achievementsInit,
     achievementTemplate,
-} from "./js/init";
+} from "./utils/init";
 
 function App() {
 
